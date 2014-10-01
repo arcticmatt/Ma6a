@@ -83,15 +83,29 @@ $q,r$ is unique.
         $c_k = (a_k > b_k) \hspace{2mm} ? \hspace{2mm} a_k \hspace{2mm} :
         \hspace{2mm} b_k$. Then we have that
         \[ LCM(p_1^{a_1}p_2^{a_2}...p_k^{a_k}, p_1^{b_1}p_2^{b_2}...
-        p_k^{b_k}) = p_1^{c_1}p_2^{c_2}...p_k^{c_k}\]
+        p_k^{b_k}) = p_1^{c_1}p_2^{c_2}...p_k^{c_k} \]
 
         Let $d_k$ be the lesser of $a_k$ and $b_k$ (if they are equal,
         just let it be $b_k$); that is, \\
         $d_k = (a_k < b_k) \hspace{2mm} ? \hspace{2mm} a_k \hspace{2mm} :
         \hspace{2mm} b_k$. Then we have that
         \[ GCD(p_1^{a_1}p_2^{a_2}...p_k^{a_k}, p_1^{b_1}p_2^{b_2}...
-        p_k^{b_k}) = p_1^{d_1}p_2^{d_2}...p_k^{d_k}\]
+        p_k^{b_k}) = p_1^{d_1}p_2^{d_2}...p_k^{d_k} \]
     \item[(b)]
+        Let $p_1,p_2,...,p_k$ and $a_1,a_2,...,a_k$ and $b_1,b_2,...,b_k$ be defined
+        as in part $(a)$.
+        Consider the prime factorization $p_1^{a_1}p_2^{a_2}...p_k^{a_k}$
+        of $a$, and the prime factorization $p_1^{b_1}p_2^{b_2}...
+        p_k^{b_k}$ of $b$.
+        Given our definition of $c_k$ and $d_k$ from above, it is clear that
+        $c_k + d_k = a_k + b_k$ for all $k$. Then we have the following:
+        \[ LCM(a,b) \cdot GCD(a,b) = p_1^{c_1}p_2^{c_2}...p_k^{c_k} \cdot
+        p_1^{d_1}p_2^{d_2}...p_k^{d_k} \]
+        \[ LCM(a,b) \cdot GCD(a,b) = p_1^{c_1 + d_1}p_2^{c_2 + d_2}...p_k^{c_k +
+        d_k} \]
+        \[ LCM(a,b) \cdot GCD(a,b) = p_1^{a_1 + b_1}p_2^{a_2 + b_2}...p_k^{a_k +
+        b_k} \]
+        \[ LCM(a,b) \cdot GCD(a,b) = a \cdot b \]
 \end{description}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 3
