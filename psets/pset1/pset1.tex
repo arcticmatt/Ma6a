@@ -7,10 +7,17 @@ bottom=1in,footskip=0in]{geometry}
 %\newcounter{Examplecount}
 %\setcounter{Examplecount}{0}
 \newenvironment{discussion}{\noindent Discussion.}{}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{10pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Ma6a Pset 1}
+\rhead{Matt Lim}
 \pagenumbering{gobble}
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 1
-\section*{Problem 1, Ma/CS 6a Set 1, Matt Lim}
+\section*{Problem 1}
 We will first prove the prime decomposition property by contradiction.
 Assume to the contrary that "every natural number $n \geq 2$ is either a prime or
 a product of primes" is not true. So, consider the set of natural numbers $S$
@@ -48,9 +55,8 @@ that there are infinitely many primes. To see why, assume to the contrary that t
 are not, and that there exist only some finite set of primes of size $n$. But then,
 given what we proved, we can generate a set of primes of size $n+1$, which is
 a contradiction.
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 2
-\section*{Problem 2, Ma/CS 6a Set 1, Matt Lim}
+\section*{Problem 2}
 Assume to the contrary that the pair $q,r$ is not unique. Then we have that
 some other pair $q_2, r_2 \in \mathbb{N}$ exists such that $a = bq_2 + r_2$
 and $0 \leq r_2 \leq b$. Consider the case where $q_2 > q$; that is, $q_2 = q + x$,
@@ -73,9 +79,8 @@ $0 \leq r$. But this is a contradiction.
 
 So in either case we obtain a contradiction. Thus, we can conclude that the pair
 $q,r$ is unique.
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 3
-\section*{Problem 3, Ma/CS 6a Set 1, Matt Lim}
+\section*{Problem 3}
 \begin{description}
     \item[(a)]
         Let $c_k$ be the greater of $a_k$ and $b_k$ (if they are equal,
@@ -84,6 +89,11 @@ $q,r$ is unique.
         \hspace{2mm} b_k$. Then we have that
         \[ LCM(p_1^{a_1}p_2^{a_2}...p_k^{a_k}, p_1^{b_1}p_2^{b_2}...
         p_k^{b_k}) = p_1^{c_1}p_2^{c_2}...p_k^{c_k} \]
+        We find the $LCM$ this way because the $LCM$ must contain the prime
+        factorization of both numbers (clearly this is a multiple of both
+        numbers). Any more than that and it will not be
+        the least common multiple, and any less and it will not be a multiple of
+        both numbers.
 
         Let $d_k$ be the lesser of $a_k$ and $b_k$ (if they are equal,
         just let it be $b_k$); that is, \\
@@ -91,6 +101,11 @@ $q,r$ is unique.
         \hspace{2mm} b_k$. Then we have that
         \[ GCD(p_1^{a_1}p_2^{a_2}...p_k^{a_k}, p_1^{b_1}p_2^{b_2}...
         p_k^{b_k}) = p_1^{d_1}p_2^{d_2}...p_k^{d_k} \]
+        We find the $GCD$ this way because the $GCD$ must contain the
+        smaller part of the prime factorization of both numbers (clearly
+        this will divide both numbers). Any more than that and it will
+        not divide the smaller number, and any less and it will not be the
+        greatest common divisor.
     \item[(b)]
         Let $p_1,p_2,...,p_k$ and $a_1,a_2,...,a_k$ and $b_1,b_2,...,b_k$ be defined
         as in part $(a)$.
@@ -107,9 +122,8 @@ $q,r$ is unique.
         b_k} \]
         \[ LCM(a,b) \cdot GCD(a,b) = a \cdot b \]
 \end{description}
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 3
-\section*{Problem 4, Ma/CS 6a Set 1, Matt Lim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 4
+\section*{Problem 4}
 \begin{description}
     \item[(a)] We can see that, for $0 \leq |a| \leq 7$, we have $a^2
         \equiv r_a \bmod 8$. Our work below shows this:
@@ -159,10 +173,43 @@ $q,r$ is unique.
         All such cases, given $r_a$, are contradictions. Thus we can conclude
         that no number of the form $3^n + 3^m + 1$, where $n,m \in \mathbb{N}$,
         is a perfect square.
-
 \end{description}
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 3
-\section*{Problem 5, Ma/CS 6a Set 1, Matt Lim}
-\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 5
+\section*{Problem 5}
+\[ p=2161 \text{ and } q=3989 \]
+\[ n=pq=8620229 \]
+\[ \varphi(pq) = n - p - q + 1  = 8614080 \]
+\[ e = 6949 \]
+Now we will use the extended Euclidean algorithm to find
+$de \equiv 1 \bmod \varphi(n)$.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ l l l }
+        8614080 & 1 & 0 \\
+        6949 & 0 & 1 \\
+        4269 & 1 & -1239 \\
+        2680 & -1 & 1240 \\
+        1589 & 2 & -2479 \\
+        1091 & -3 & 3719 \\
+        498 & 5 & -6198 \\
+        95 & -13 & 16115 \\
+        23 & 70 & -86773 \\
+        3 & -293 & 363207 \\
+        2 & 2121 & -2629222 \\
+        1 & -2414 & 2992429 \\
+    \end{tabular}
+\end{table}
+
+Then we have that letting $d = 2992429$ gives us
+$de \equiv 1 \bmod \varphi(n)$.
+
+Now we can encrypt $m = 2014$.
+\[ X =  m^e \bmod n \]
+\[ X = 2014^{6949} \bmod 8620229 \]
+\[ X = 7986909 \]
+
+Decrypting this $X$ would go as follows.
+\[ X^d \bmod n = 7986909^{2992429} \bmod 8620229 \]
+\[ X^d \bmod n = 2014 \]
 \end{document}
