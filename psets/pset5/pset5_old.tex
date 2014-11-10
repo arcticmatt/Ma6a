@@ -27,40 +27,16 @@ contains the vertices in the matching so far from $V_1$, $S_2$ contains the
 vertices in the matching so far from $V_2$, and $M$ contains the edges in the
 matching so far. So to start, $M$ will just contain $e$, and $S_1$ and $S_2$
 will contain the respective vertices. Then we will iterate
-through the vertices in $V_1 - a_1$. For each vertex $v$, if it has an edge to a
+through the vertices in $V_1$. For each vertex $v$, if it has an edge to a
 vertex not already in $S_2$, then we can just add that edge and its respective
 vertices to $M$, $S_1$, and $S_2$. If all of $v$s edges are to vertices in $S_2$,
-then we can do the following. Consider the set of vertices $S = S_1 + v - a_1$.
-We have that $S$ must be connected to two vertices not in $S_2 - a_2$; otherwise,
-we would have that $|S| \geq |N(S)|$. So then, we can just add one of those two
-vertices to $S_2$ (if one of them is $a_2$, take the other one so we
-don't disconnect $e$), add $v$ to $S_1$, and add/switch the edges around in
-$M$ accordingly. That is, we basically switch a vertex in $S$ to match with
-something else (one of those two vertices not in $S_2 - a_2$)
-so that $v$ can match with a vertex in $S_2 - a_2$. Note that in this process,
-we never lose the edge $e$ from our matching, since one of the two vertices
-we found was $a_2$, we picked the other one.
-
-So that is our process. We have that we can continue this process until we add
-the final edge to our matching which makes it perfect. It is clear that
-we can do this because our algorithm always uses that fact that $|A| < |N(A)|$
-only for subsets of $V_1$ that are not empty or not $V_1$ itself. Thus, given
-an arbitrary $e$, we have shown that we can find a perfect matching of $G$
-that contains $e$. So we have proved the desired statement.
-
-Alternatively, we can use Hall's Theorem to prove it. So given an arbitrary
-$e = (a_1, a_2)$, consider the graph $G' = (V_1 - a_1 \cup V_2 - a_2, E - S)$,
-where $S$ is the set of all edges adjacent to $a_1$ and $a_2$.
-Let $|N'(X)|$ denote the cardinality of the neighborhood of $X$ in $G'$,
-and $|N(X)|$ denote the cardinality of the neighborhood of $X$ in $G$. Then
-we have that $|A'| < |N(A')|$ (property of the original graph)
-and that $|N'(A')| \geq |N(A')| - 1$ (since the only neighboring node we remove
-in $G'$ is $a_2$) which tells
-us that $|A'| \leq |N'(A')|$. This means that $G'$ has a perfect matching
-by Hall's Theorem. Then we have that there is a perfect matching for $G$
-because we can just add $e$ to the perfect matching of $G'$ to make it.
-And since for any edge $e$ we can do this, we have that for every
-edge $e \in E$, there exists a perfect matching of $G$ that contains $e$.
+then we can do the following. We have that there must be edges from vertices in
+$S_1$ to vertices not in $S_2$; otherwise, we would clearly have that
+$|A| \geq |N(A)|$ for the subset $A = S_1$. So we can just add one of the
+vertices $u$ adjacent to one of the vertices in $S_1$ to $S_2$ (such that $u$
+is not already in $S_2$), add $v$ to $S_1$, and add/switch the edges around
+in $M$ accordingly. That is, we basically switch a vertex in $S_1$ to match
+with something else so that $v$ can match with a vertex in $S_2$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 2
 \section*{Problem 2}
@@ -99,9 +75,6 @@ Here is the strategy:
     \item Biscuit, when it is his turn, always chooses an edge that is in $M$.
     \item Biscuit wins.
 \end{enumerate}
-For this problem, we will define an ``unmatched vertex" as a vertex that is not
-adjacent to any edge in $M$.
-
 Before proving our strategy works we will first prove a lemma. The lemma
 is that if we have a maximum matching $M$, then there does not exist
 an path in $M$ that starts and ends on unmatched vertices. So, consider
@@ -119,17 +92,8 @@ So now that we alternate along the whole path, we can clearly match more, since
 before we were alternating along a path shorter by two edges.
 
 Now we will prove that our strategy works using our lemma. So, we have that
-Biscuit starts by choosing a vertex $v_1$ not adjacent to any edge in $M$.
-Then we have that
-by our lemma, Adam will travel to a vertex $v_2$ adjacent to an edge in $M$.
-Then Biscuit
-will choose an edge that is in $M$. Then Adam will choose an edge not in $M$,
-then Biscuit will always choose an edge that is in $M$. Now, given this strategy,
-assume to the contrary that
-Adam wins. This means that Adam ended on a vertex that is not adjacent to
-any edge in $M$ - otherwise, Biscuit would have picked it.
-But this contradicts our lemma, since Biscuit started on an unmatched vertex.
-So we have that Biscuit must win.
+Biscuit starts by choosing a vertex $v_1$ not in $M$. Then,
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 4
 \section*{Problem 4}
@@ -153,7 +117,7 @@ Here is our algorithm.
     \item Give all edges in the graph $G = (V, E)$ a capacity of $\infty$.
     \item Make all vertices, except for $s$ and $t$,
             into edges with capacity $1$. So if we have
-        a vertex $v$, it will become an edge $e = (a,b)$, where the capacity
+        a vertex $v$, it will become an edge $e = (u,v)$, where the capacity
         of $e$ is $1$. Call this modified graph $G' = (V', E')$, where
         $E' = E + X$, where $X$ are the edges spawned by the vertices.
     \item Find the edges in the min cut of $G'$ and return the vertices that
@@ -163,14 +127,12 @@ Here is our algorithm.
         capacity of the min cut (this was also covered in class).
 \end{enumerate}
 Now we will prove that this algorithm is correct. We have that the min cut
-disconnects the graph by definition (and thus that the set of vertices we
-pick disconnects the graph). We also have that it disconnects the
+disconnects the graph by definition. We also have that it disconnects the
 graph by minimizing the capacity of the edges it cuts. This means that
 the edges we cut will have to be in $X$, since the edges in $E$ have infinite
 capacity. Then we have that since we assigned all the edges in $X$ to have
 a capacity of $1$, and the edges in $X$ actually represent vertices in $G$,
 finding the min cut in $G'$ is the same as finding the minimum set of
-disconnecting vertices in $G$ (given how we constructed $G'$).
-Thus our proof is complete.
+disconnecting vertices in $G$. Thus our proof is complete.
 
 \end{document}
