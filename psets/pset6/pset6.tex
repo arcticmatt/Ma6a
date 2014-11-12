@@ -1,0 +1,88 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Preamble
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage}
+\usepackage[a4paper,bindingoffset=0in,left=1in,right=1in,top=1in,
+bottom=1in,footskip=0in]{geometry}
+\newtheorem*{prop}{Proposition}
+%\newcounter{Examplecount}
+%\setcounter{Examplecount}{0}
+\newenvironment{discussion}{\noindent Discussion.}{}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{10pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Ma6a Pset 6}
+\rhead{Matt Lim}
+\pagenumbering{gobble}
+\pagenumbering{gobble}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 1
+\section*{Problem 1}
+\begin{description}
+    \item[(a)] Here is our algorithm:
+        \begin{enumerate}
+            \item Find the cost of the min cut of the original flow network.
+                This can be done by using Ford Fulkerson to find the max
+                flow, then seeing how much flow goes out of the source
+                node to get the size of the max flow, then applying the max
+                flow min cut theorem. Let this cost be $C_0$.
+            \item Remove $e$ from the flow network and find the cost of the min
+                cut for that new flow network. Let this cost be $C_1$.
+            \item If $|C_1 - C_0| = c(e)$, where $c(e)$ is the capacity of $e$,
+                return true. Else return false.
+        \end{enumerate}
+    \item[(b)] Here is our algorithm:
+        \begin{enumerate}
+            \item Find a cut whose size is equivalent to the size of the
+                maximum flow (a min cut). This can be done by using Ford
+                Fulkerson to find the max flow, then seeing how much flow
+                goes out of the source node to get the size of the max flow,
+                then using a BFS to find a cut whose size is equivalent
+                to the size of the max flow. Then we can iterate over the
+                edges and find the edges that cross the cut. Call this set of
+                edges $C$.
+            \item Let $count = k$. While $count > 0$ and $|C| > 0$,
+                greedily remove the highest capacity edge $e_{c\_max} \in C$
+                from $C$, add it to $S$, and decrement $count$ by $1$. In
+                this case, since the capacities are all $1$, we can just keep
+                removing any edge from $C$ and adding it to $S$ until we have
+                either removed $k$ edges or there are no more edges from $C$
+                to remove.
+            \item Return $S$.
+        \end{enumerate}
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 2
+\section*{Problem 2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 3
+\section*{Problem 3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 4
+\section*{Problem 4}
+\begin{description}
+    \item[(a)] We will prove this is true by induction on the size of odd
+        length cycles. Our base case will be cycles of length $5$. To
+        prove this, consider an arbitrary cycle $(x_1x_2x_3x_4x_5)$ of
+        length $5$. We have that this is just the same as the composition
+        $(x_1x_2x_3)(x_3x_4x_5)$. So the base case is satisfied. Now assume
+        that any odd cycle of length $k$ can be expressed as a composition of
+        cycles of length $3$. Now we must show that odd cycles of length
+        $k+2$ can be expressed as a composition of cycles of length $3$.
+        That is, we want to show that cycles of the form $(x_1x_2\cdots x_{k+2})$
+        can be expressed as a composition of cycles of length $3$. We have that
+        $(x_1x_2\cdots x_{k+2})$ can be expressed as
+        $(x_1x_2\cdots x_k)(x_kx_{k+1}x_{k+2})$. And due to our inductive
+        assumption $(x_1x_2\cdots x_k)$ can be expressed as a combination of
+        cycles of length $3$. So we can conclude that odd cycles of length
+        $k+2$ can be expressed as a composition of cycles of length $3$, and
+        our inductive proof is complete.
+    \item[(b)]
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 5
+\section*{Problem 5}
+
+\end{document}
